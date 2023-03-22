@@ -5,7 +5,7 @@ const routes = Router();
 
 routes.post(
   '/cars',
-  (req, res, next) => new CarController(req, res, next).create()
-)
+  (req, res, next) => new CarController(req, res, next).create(),
+);
 
-export default routes
+export default routes;
