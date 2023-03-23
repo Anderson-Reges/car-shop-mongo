@@ -1,5 +1,7 @@
+import { isValidObjectId } from 'mongoose';
 import Motorcycle from '../Domains/Motorcycle';
 import IMotorcycle from '../Interfaces/IMotorcycle';
+import ErrorHandler from '../Middlewares/ErrorHandle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
 export default class MotorcycleService {
@@ -23,5 +25,20 @@ export default class MotorcycleService {
     const bikeODM = new MotorcycleODM();
     const newBike = await bikeODM.create(obj);
     return this.createMotocycleDomain(newBike);
+  }
+
+  public async findAll() {
+    const carOdm = new MotorcycleODM();
+    const carsList = await carOdm.find();
+    const allCars = carsList.map((car) => this.createMotocycleDomain(car));
+    return allCars;
+  }
+
+  public async findOne(id: string) {
+    if (!isValidObjectId(id)) ErrorHandler.throwErro('UNPROCESSABLE_ENTITY', 'Invalid mongo id');
+    const carOdm = new MotorcycleODM();
+    const car = await carOdm.findOne(id);
+    if (!car) ErrorHandler.throwErro('NOT_FOUND', 'Motorcycle not found');
+    return this.createMotocycleDomain(car);
   }
 }
