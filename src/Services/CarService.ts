@@ -1,5 +1,5 @@
 import { isValidObjectId } from 'mongoose';
-import Car from '../Domains/Car';
+import Car from '../Domains/Vehicle/Car';
 import ICar from '../Interfaces/ICar';
 import ErrorHandler from '../Middlewares/ErrorHandle';
 import CarODM from '../Models/CarODM';
@@ -7,7 +7,7 @@ import CarODM from '../Models/CarODM';
 export default class CarService {
   private createCarDomain(car: ICar | null): Car | null {
     if (car) {
-      const newCar = {
+      return new Car({
         id: car.id,
         model: car.model,
         year: car.year,
@@ -16,8 +16,7 @@ export default class CarService {
         doorsQty: car.doorsQty,
         seatsQty: car.seatsQty,
         status: car.status,
-      };
-      return new Car(newCar);
+      });
     }
     return null;
   }
