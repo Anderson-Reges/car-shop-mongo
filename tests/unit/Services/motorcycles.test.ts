@@ -69,8 +69,7 @@ describe('Test motorcycles service', function () {
 
   it('Test if create a new motorcycle', async function () {
     const bikeInput: IMotorcycle = {
-      id: '634852326b35b59438fbea31',
-      model: 'Honda Cbr 1000rr',
+      model: 'Honda Cbr 1000r',
       year: 2011,
       color: 'Orange',
       status: true,
@@ -92,6 +91,34 @@ describe('Test motorcycles service', function () {
 
     const bikeService = new MotorcycleService();
     const result = await bikeService.create(bikeInput);
+
+    expect(result).to.be.deep.equal(bikeOutput);
+  });
+
+  it('Test if is possible update a motocycle', async function () {
+    const bikeInput: IMotorcycle = {
+      model: 'Honda Cbr 1000rr',
+      year: 2011,
+      color: 'Orange',
+      status: true,
+      buyValue: 59.900,
+      category: 'Street',
+      engineCapacity: 1000,
+    };
+    const bikeOutput: IMotorcycle = {
+      id: '634852326b35b59438fbea31',
+      model: 'Honda Cbr 1000rr',
+      year: 2011,
+      color: 'Red',
+      status: true,
+      buyValue: 59.900,
+      category: 'Street',
+      engineCapacity: 1000,
+    };
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(bikeOutput);
+    const bikeService = new MotorcycleService();
+    sinon.stub(bikeService, 'findOne').resolves();
+    const result = await bikeService.update('634852326b35b59438fbea31', bikeInput);
 
     expect(result).to.be.deep.equal(bikeOutput);
   });
