@@ -27,7 +27,7 @@ export default class CarController {
     const { id } = this.req.params;
     try {
       const updateCar = await this.service.update(id, this.req.body);
-      return this.res.status(201).json(updateCar);
+      return this.res.status(200).json(updateCar);
     } catch (error) {
       this.next(error);
     }

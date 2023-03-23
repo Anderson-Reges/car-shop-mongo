@@ -16,7 +16,7 @@ routes
     '/cars',
     (req, res, next) => new CarController(req, res, next).create(),
   )
-  .post(
+  .put(
     '/cars/:id',
     (req, res, next) => new CarController(req, res, next).update(),
   );
