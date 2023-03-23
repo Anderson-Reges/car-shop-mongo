@@ -28,17 +28,17 @@ export default class MotorcycleService {
   }
 
   public async findAll() {
-    const carOdm = new MotorcycleODM();
-    const carsList = await carOdm.find();
-    const allCars = carsList.map((car) => this.createMotocycleDomain(car));
+    const bikeODM = new MotorcycleODM();
+    const bikeList = await bikeODM.find();
+    const allCars = bikeList.map((bike) => this.createMotocycleDomain(bike));
     return allCars;
   }
 
   public async findOne(id: string) {
     if (!isValidObjectId(id)) ErrorHandler.throwErro('UNPROCESSABLE_ENTITY', 'Invalid mongo id');
-    const carOdm = new MotorcycleODM();
-    const car = await carOdm.findOne(id);
-    if (!car) ErrorHandler.throwErro('NOT_FOUND', 'Motorcycle not found');
-    return this.createMotocycleDomain(car);
+    const bikeODM = new MotorcycleODM();
+    const bike = await bikeODM.findOne(id);
+    if (!bike) ErrorHandler.throwErro('NOT_FOUND', 'Motorcycle not found');
+    return this.createMotocycleDomain(bike);
   }
 }
