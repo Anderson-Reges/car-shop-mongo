@@ -20,6 +20,14 @@ export default abstract class AbstractODM<T> {
     return this.model.create({ ...obj });
   }
 
+  public async update(id: string, obj: Partial<T>): Promise<T | null> {
+    return this.model.findByIdAndUpdate(
+      { _id: id },
+      { ...obj },
+      { new: true },
+    );
+  }
+
   public async find(): Promise<T[]> {
     return this.model.find({});
   }

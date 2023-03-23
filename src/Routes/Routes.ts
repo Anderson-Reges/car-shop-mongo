@@ -15,6 +15,10 @@ routes
   .post(
     '/cars',
     (req, res, next) => new CarController(req, res, next).create(),
+  )
+  .post(
+    '/cars/:id',
+    (req, res, next) => new CarController(req, res, next).update(),
   );
 
 export default routes;
