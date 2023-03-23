@@ -1,5 +1,7 @@
+import { isValidObjectId } from 'mongoose';
 import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
+import ErrorHandler from '../Middlewares/ErrorHandle';
 import CarODM from '../Models/CarODM';
 
 export default class CarService {
@@ -24,5 +26,20 @@ export default class CarService {
     const carOdm = new CarODM();
     const newCar = await carOdm.create(car);
     return this.createCarDomain(newCar);
+  }
+
+  public async findAll() {
+    const carOdm = new CarODM();
+    const carsList = await carOdm.find();
+    const allCars = carsList.map((car) => this.createCarDomain(car));
+    return allCars;
+  }
+
+  public async findOne(id: string) {
+    if (!isValidObjectId(id)) ErrorHandler.throwErro('UNPROCESSABLE_ENTITY', 'Invalid mongo id');
+    const carOdm = new CarODM();
+    const car = await carOdm.findOne(id);
+    if (!car) ErrorHandler.throwErro('NOT_FOUND', 'Car not found');
+    return this.createCarDomain(car);
   }
 }
