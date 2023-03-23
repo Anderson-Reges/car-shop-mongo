@@ -1,5 +1,5 @@
 import { isValidObjectId } from 'mongoose';
-import Car from '../Domains/Vehicle/Car';
+import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import ErrorHandler from '../Middlewares/ErrorHandle';
 import CarODM from '../Models/CarODM';
