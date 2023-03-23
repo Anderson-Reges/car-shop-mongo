@@ -23,10 +23,20 @@ export default class MotorcycleController {
     }
   }
 
+  public async update() {
+    const { id } = this.req.params;
+    try {
+      const updateBike = await this.service.update(id, this.req.body);
+      return this.res.status(200).json(updateBike);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
   public async findAll() {
     try {
-      const cars = await this.service.findAll();
-      return this.res.status(200).json(cars);
+      const motorcycles = await this.service.findAll();
+      return this.res.status(200).json(motorcycles);
     } catch (error) {
       this.next(error);
     }
@@ -35,8 +45,8 @@ export default class MotorcycleController {
   public async findOne() {
     const { id } = this.req.params;
     try {
-      const car = await this.service.findOne(id);
-      return this.res.status(200).json(car);
+      const motocycle = await this.service.findOne(id);
+      return this.res.status(200).json(motocycle);
     } catch (error) {
       this.next(error);
     }
